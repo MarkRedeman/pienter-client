@@ -231,6 +231,7 @@ export function fetchMembers() {
         .join(' '),
 
       age: calculateAge(lid),
+      birthdate: lid.geboortedatum,
       prominent: lid.prominent,
 
       latest_purchase_at: lid.latest_purchase_at

@@ -11,37 +11,30 @@ export default class MemberItem extends Component {
       firstname: props.member.firstName,
       insertion: props.member.insertion,
       surname: props.member.surname,
-      group: props.member.group
+      group: props.member.group,
+      birthdate: props.member.birthdate
     };
   }
 
   onEdit() {
-    console.log('edit');
     this.setState({ state: 'edit' });
   }
 
   save() {
-    console.log({
-      firstname: this.state.firstname,
-      insertion: this.state.insertion,
-      surname: this.state.surname,
-      group: this.state.group
-    });
     api
       .put(`/members/${this.props.member.id}`, {
         firstname: this.state.firstname,
         insertion: this.state.insertion,
         surname: this.state.surname,
-        group: this.state.group
+        group: this.state.group,
+        birthdate: this.state.birthdate
       })
       .then(response => {
-        console.log('ready');
         window.location.reload();
       });
   }
 
   onSaved() {
-    console.log('saved');
     this.setState({ state: 'view' });
     window.reload();
   }
@@ -66,11 +59,14 @@ export default class MemberItem extends Component {
     this.setState({ group: event.target.value });
   }
 
+  changeBirthdate(event) {
+    this.setState({ birthdate: event.target.value });
+  }
+
   render() {
     const { member } = this.props;
 
     if (this.state.state === 'edit') {
-      console.log('edit');
       return (
         <li className="d-flex justify-content-between p-2 my-3 bg-white">
           <div className="form-group w-100 px-3">
@@ -106,6 +102,14 @@ export default class MemberItem extends Component {
               onChange={event => this.changeGroup(event)}
               value={this.state.group}
             />
+            <input
+              type="date"
+              className="form-control my-2"
+              id="birthdate"
+              placeholder="dd/mm/yyyy"
+              onChange={event => this.changeBirthdate(event)}
+              value={this.state.birthdate}
+            />
           </div>
 
           <div>
@@ -124,7 +128,6 @@ export default class MemberItem extends Component {
       );
     }
 
-    console.log('view');
     return (
       <li className="d-flex justify-content-between p-2 my-3 bg-white">
         <strong className="">{member.fullname}</strong>

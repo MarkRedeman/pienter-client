@@ -11,7 +11,8 @@ export default class AddMember extends Component {
       firstname: '',
       insertion: '',
       surname: '',
-      group: ''
+      group: '',
+      birthdate: ''
     };
   }
 
@@ -21,7 +22,8 @@ export default class AddMember extends Component {
         firstname: this.state.firstname,
         insertion: this.state.insertion,
         surname: this.state.surname,
-        group: this.state.group
+        group: this.state.group,
+        birthdate: this.state.birthdate
       })
       .then(response => {
         window.location.reload();
@@ -46,6 +48,10 @@ export default class AddMember extends Component {
 
   changeGroup(event) {
     this.setState({ group: event.target.value });
+  }
+
+  changeBirthdate(event) {
+    this.setState({ birthdate: event.target.value });
   }
 
   render() {
@@ -83,6 +89,14 @@ export default class AddMember extends Component {
             placeholder="group"
             onChange={event => this.changeGroup(event)}
             value={this.state.group}
+          />
+          <input
+            type="date"
+            className="form-control my-2"
+            id="birthdate"
+            placeholder="dd/mm/yyyy"
+            onChange={event => this.changeBirthdate(event)}
+            value={this.state.birthdate}
           />
         </div>
 
